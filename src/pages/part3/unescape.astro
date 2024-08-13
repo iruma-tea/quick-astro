@@ -1,0 +1,13 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+const msg = "こんにちは、世界！<br />さようなら、私";
+---
+
+<Layout title="標準のエスケープ">
+  <p>{msg}</p>
+  <!-- <p set:html={msg} /> -->
+  <!-- <p set:html={fetch("https://wings.msn.to/")} /> -->
+  <!-- <Fragment set:html={msg} /> -->
+  <!-- <p is:raw>{msg}</p> -->
+</Layout>

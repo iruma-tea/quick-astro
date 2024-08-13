@@ -1,0 +1,32 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { articles } from "@assets/articles";
+
+// 公開日に応じて新作、準新作、旧作に分類
+function classifyArticle(date:Date) {
+    const now = Date.now();
+    const diff = now - date.getTime();
+    if (diff < 1000 * 60 * 60 * 24 * 30) {
+        return '新作';
+    } else if (diff < 1000 * 60 * 60* 24 * 90) {
+        return '準新作';
+    } else {
+        return '旧作';
+    }
+}
+---
+
+<Layout title="ループ構文">
+    <dl>
+        {articles.map(article => (
+            <dt>
+                <a href={article.url}>{article.title}</a>
+                {/* {article.isNew && <img src="/image/new.png" alt="New" />} */}
+                [{classifyArticle(article.publishedAt)}]
+            </dt>
+            <dd>
+                {article.description}
+            </dd>
+        ))}
+    </dl>
+</Layout>
