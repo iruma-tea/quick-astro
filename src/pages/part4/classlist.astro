@@ -1,0 +1,11 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+const str = "base home";
+const list = ["first", "second", "third"];
+const obj = { main: true, sub: false };
+---
+
+<Layout title="class:list属性">
+  <p class:list={[str, list, obj]}>こんにちは、世界！</p>
+</Layout>
