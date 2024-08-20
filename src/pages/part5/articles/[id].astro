@@ -1,0 +1,22 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { articles } from "@assets/articles";
+
+export async function getStaticPaths() {
+  return articles.map((item) => {
+    return {
+      params: { id: item.id },
+      props: { article: item },
+    };
+  });
+}
+
+const { id } = Astro.params;
+const { article } = Astro.props;
+---
+
+<Layout title={article.title}>
+  <h3>{id}. {article.title}</h3>
+  <p>{article.publishedAt.toLocaleDateString()}</p>
+  <p>{article.description}</p>
+</Layout>
