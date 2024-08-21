@@ -1,0 +1,41 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { articles } from "@assets/articles";
+
+export async function getStaticPaths() {
+  const paths = [];
+
+  for (const y of [2023, 2024]) {
+    for (let i = 1; i < 13; i++) {
+      paths.push({
+        params: { year: y.toString(), month: i.toString() },
+      });
+    }
+  }
+  return paths;
+}
+
+const { year, month } = Astro.params;
+const filteredArticles = articles.filter((article) => {
+  const pub = article.publishedAt;
+  return (
+    pub.getFullYear() === parseInt(year) &&
+    pub.getMonth() + 1 === parseInt(month)
+  );
+});
+---
+
+<Layout title="複数パラメータ―の例">
+  <p>{year}年{month}月</p>
+  <ul>
+    {
+      filteredArticles.map((article) => (
+        <li>
+          <a href={article.url}>
+            {article.title} ({article.publishedAt.toLocaleDateString()})
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
